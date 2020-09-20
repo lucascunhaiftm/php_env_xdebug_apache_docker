@@ -1,0 +1,25 @@
+web:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  container_name: cont_web_apache_php_xdebug
+  ports:
+    - "8000:80"
+  links:
+    - mysql
+  volumes:
+    - .:/var/www/html
+    - "./build/php.ini:/usr/local/etc/php/php.ini"
+  env_file:
+      - build/env
+
+mysql:
+  container_name: cont_mysql57
+  image: mysql:5.7
+  ports:
+      - "6033:3306"
+  # Add a persistent drive to have the mysql DB locally and not only in the container
+  volumes:
+      - ./build/mysql/data:/var/lib/mysql
+  env_file:
+    - build/env
