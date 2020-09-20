@@ -1,15 +1,13 @@
 FROM php:7.0-apache
 
 # Install PHP extensions
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get update && apt-get install -y \
+RUN   apt-get update && apt-get install -y \
       libicu-dev \
       libpq-dev \
       libmcrypt-dev \
       mysql-client \
-      libmysqlclient-dev \
+      default-libmysqlclient-dev \
       ruby-full \
-      nodejs \
     && rm -r /var/lib/apt/lists/* \
     && docker-php-ext-configure pdo_mysql --with-pdo-mysql=mysqlnd \
     && docker-php-ext-install \
